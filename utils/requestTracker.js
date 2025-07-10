@@ -46,6 +46,29 @@ class RequestTracker {
     return this.dailyRequests.get(today) || 0;
   }
 
+  // Get requests for a specific date
+  getRequestsForDate(date) {
+    const dateString = new Date(date).toDateString();
+    return this.dailyRequests.get(dateString) || 0;
+  }
+
+  // Get daily request history (last 7 days)
+  getDailyHistory() {
+    const history = [];
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateString = date.toDateString();
+      const count = this.dailyRequests.get(dateString) || 0;
+      history.push({
+        date: dateString,
+        count: count,
+        shortDate: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      });
+    }
+    return history;
+  }
+
   // Get statistics
   getStatistics() {
     const now = new Date();
@@ -56,7 +79,14 @@ class RequestTracker {
       todayRequests: this.getTodayRequests(),
       uptimeHours,
       topEndpoints: this.getTopEndpoints(5),
-      requestCounts: this.getAllRequestCounts()
+      requestCounts: this.getAllRequestCounts(),
+      dailyHistory: this.getDailyHistory(),
+      currentDate: new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      })
     };
   }
 
