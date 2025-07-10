@@ -393,98 +393,68 @@
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
-            <!-- API 1 - Anime Search -->
-            <div class="bg-dark-700/50 backdrop-blur-sm p-6 rounded-lg border border-dark-600 card-hover opacity-0 reveal relative overflow-hidden group" style="transition-delay: 0.3s;">
-              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-blue to-accent-purple"></div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl font-bold text-white">1</span>
-                <div class="flex items-center space-x-2">
-                  <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full font-medium">GET</span>
+            <!-- Top 5 APIs List -->
+            <div class="bg-dark-700/50 backdrop-blur-sm p-8 rounded-lg border border-dark-600 opacity-0 reveal" style="transition-delay: 0.3s;">
+              <div class="space-y-6">
+                <!-- API 1 - Anime -->
+                <div class="flex items-center justify-between py-3 border-b border-dark-600/50 last:border-b-0">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-dark-900 font-bold text-sm">1</div>
+                    <div>
+                      <h3 class="text-white font-semibold">Anime</h3>
+                      <p class="text-gray-400 text-sm">GET · search</p>
+                    </div>
+                  </div>
+                  <span class="text-gray-300 font-medium">34 requests</span>
                 </div>
-              </div>
-              <h3 class="text-lg font-semibold text-white mb-2">Anime</h3>
-              <p class="text-gray-400 text-sm mb-3">search</p>
-              <div class="flex items-center justify-between">
-                <span class="text-accent-blue font-semibold">34 requests</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-accent-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-            </div>
 
-            <!-- API 2 - TikTok Downloader -->
-            <div class="bg-dark-700/50 backdrop-blur-sm p-6 rounded-lg border border-dark-600 card-hover opacity-0 reveal relative overflow-hidden group" style="transition-delay: 0.4s;">
-              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-pink to-accent-purple"></div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl font-bold text-white">2</span>
-                <div class="flex items-center space-x-2">
-                  <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full font-medium">GET</span>
+                <!-- API 2 - Downloader -->
+                <div class="flex items-center justify-between py-3 border-b border-dark-600/50 last:border-b-0">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                    <div>
+                      <h3 class="text-white font-semibold">Downloader</h3>
+                      <p class="text-gray-400 text-sm">GET · TikTok</p>
+                    </div>
+                  </div>
+                  <span class="text-gray-300 font-medium">5 requests</span>
                 </div>
-              </div>
-              <h3 class="text-lg font-semibold text-white mb-2">Downloader</h3>
-              <p class="text-gray-400 text-sm mb-3">TikTok</p>
-              <div class="flex items-center justify-between">
-                <span class="text-accent-pink font-semibold">5 requests</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-accent-pink transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-            </div>
 
-            <!-- API 3 - Manga Search -->
-            <div class="bg-dark-700/50 backdrop-blur-sm p-6 rounded-lg border border-dark-600 card-hover opacity-0 reveal relative overflow-hidden group" style="transition-delay: 0.5s;">
-              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-purple to-accent-teal"></div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl font-bold text-white">3</span>
-                <div class="flex items-center space-x-2">
-                  <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full font-medium">GET</span>
+                <!-- API 3 - Manga -->
+                <div class="flex items-center justify-between py-3 border-b border-dark-600/50 last:border-b-0">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                    <div>
+                      <h3 class="text-white font-semibold">Manga</h3>
+                      <p class="text-gray-400 text-sm">GET · search</p>
+                    </div>
+                  </div>
+                  <span class="text-gray-300 font-medium">4 requests</span>
                 </div>
-              </div>
-              <h3 class="text-lg font-semibold text-white mb-2">Manga</h3>
-              <p class="text-gray-400 text-sm mb-3">search</p>
-              <div class="flex items-center justify-between">
-                <span class="text-accent-purple font-semibold">4 requests</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-accent-purple transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-            </div>
 
-            <!-- API 4 - YouTube Search -->
-            <div class="bg-dark-700/50 backdrop-blur-sm p-6 rounded-lg border border-dark-600 card-hover opacity-0 reveal relative overflow-hidden group" style="transition-delay: 0.6s;">
-              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-teal to-accent-blue"></div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl font-bold text-white">4</span>
-                <div class="flex items-center space-x-2">
-                  <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full font-medium">GET</span>
+                <!-- API 4 - Search -->
+                <div class="flex items-center justify-between py-3 border-b border-dark-600/50 last:border-b-0">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                    <div>
+                      <h3 class="text-white font-semibold">search</h3>
+                      <p class="text-gray-400 text-sm">GET · YouTube-search</p>
+                    </div>
+                  </div>
+                  <span class="text-gray-300 font-medium">3 requests</span>
                 </div>
-              </div>
-              <h3 class="text-lg font-semibold text-white mb-2">Search</h3>
-              <p class="text-gray-400 text-sm mb-3">YouTube-search</p>
-              <div class="flex items-center justify-between">
-                <span class="text-accent-teal font-semibold">3 requests</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-accent-teal transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-            </div>
 
-            <!-- API 5 - AI DeepSeek -->
-            <div class="bg-dark-700/50 backdrop-blur-sm p-6 rounded-lg border border-dark-600 card-hover opacity-0 reveal relative overflow-hidden group" style="transition-delay: 0.7s;">
-              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-blue to-accent-pink"></div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl font-bold text-white">5</span>
-                <div class="flex items-center space-x-2">
-                  <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full font-medium">GET</span>
+                <!-- API 5 - AI -->
+                <div class="flex items-center justify-between py-3 border-b border-dark-600/50 last:border-b-0">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">5</div>
+                    <div>
+                      <h3 class="text-white font-semibold">AI</h3>
+                      <p class="text-gray-400 text-sm">GET · deepseek</p>
+                    </div>
+                  </div>
+                  <span class="text-gray-300 font-medium">1 request</span>
                 </div>
-              </div>
-              <h3 class="text-lg font-semibold text-white mb-2">AI</h3>
-              <p class="text-gray-400 text-sm mb-3">deepseek</p>
-              <div class="flex items-center justify-between">
-                <span class="text-accent-blue font-semibold">1 request</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-accent-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
               </div>
             </div>
           </div>
