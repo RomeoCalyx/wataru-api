@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const cors = require('cors');
+const requestTracker = require('./utils/requestTracker');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -30,6 +31,9 @@ const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
 // Middleware to augment JSON responses, compatible with users.js responses
 app.use((req, res, next) => {
   const originalJson = res.json;
+  const originalSend = res.send;
+  const originalEnd = res.end;
+  
   res.json = function (data) {
     if (data && typeof data === 'object') {
       const responseData = {
@@ -41,6 +45,31 @@ app.use((req, res, next) => {
     }
     return originalJson.call(this, data);
   };
+  
+  // Track successful API requests
+  const trackRequest = () => {
+    if (req.path.startsWith('/api/') && res.statusCode < 400) {
+      const apiPath = req.path.replace('/api', '');
+      requestTracker.trackRequest(apiPath, req.method);
+    }
+  };
+  
+  // Override response methods to track requests
+  res.json = function(data) {
+    trackRequest();
+    return originalJson.call(this, data);
+  };
+  
+  res.send = function(data) {
+    trackRequest();
+    return originalSend.call(this, data);
+  };
+  
+  res.end = function(data) {
+    trackRequest();
+    return originalEnd.call(this, data);
+  };
+  
   next();
 });
 
@@ -77,7 +106,8 @@ const loadModules = (dir) => {
           category: module.meta.category,
           path: routePath + (module.meta.path.includes('?') ? '?' + module.meta.path.split('?')[1] : ''),
           author: module.meta.author,
-          method: module.meta.method || 'get'
+          method: module.meta.method || 'get',
+          basePath: basePath // Store the base path for request tracking
         });
         totalRoutes++;
         console.log(chalk.bgHex('#FFFF99').hex('#333').bold(`Loaded Route: ${module.meta.name} (${method.toUpperCase()})`));
@@ -96,19 +126,36 @@ console.log(chalk.bgHex('#90EE90').hex('#333').bold(`Total Routes Loaded: ${tota
 // Endpoint to expose API metadata
 app.get('/api/info', (req, res) => {
   const categories = {};
+  const requestCounts = requestTracker.getAllRequestCounts();
+  
   apiModules.forEach(module => {
     if (!categories[module.category]) {
       categories[module.category] = { name: module.category, items: [] };
     }
+    
+    // Get request count for this endpoint
+    const requestKey = `${module.method.toUpperCase()} ${module.basePath}`;
+    const requestCount = requestCounts[requestKey] || 0;
+    
     categories[module.category].items.push({
       name: module.name,
       desc: module.description,
       path: module.path,
       author: module.author,
-      method: module.method
+      method: module.method,
+      requestCount: requestCount
     });
   });
-  res.json({ categories: Object.values(categories) });
+  
+  res.json({ 
+    categories: Object.values(categories),
+    statistics: requestTracker.getStatistics()
+  });
+});
+
+// New endpoint to get request statistics
+app.get('/api/stats', (req, res) => {
+  res.json(requestTracker.getStatistics());
 });
 
 // Serve index.html for the root route
