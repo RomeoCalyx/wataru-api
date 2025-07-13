@@ -20,6 +20,7 @@
     "https": "^1.0.0",
     "node-fetch": "^2.6.1",
     "spotidownloader": "^1.0.0",
+    "sqlite3": "^5.1.7",
     "yt-search": "^2.12.1"
   }
 }

@@ -124,9 +124,9 @@ console.log(chalk.bgHex('#90EE90').hex('#333').bold('Load Complete! ✓'));
 console.log(chalk.bgHex('#90EE90').hex('#333').bold(`Total Routes Loaded: ${totalRoutes}`));
 
 // Endpoint to expose API metadata
-app.get('/api/info', (req, res) => {
+app.get('/api/info', async (req, res) => {
   const categories = {};
-  const requestCounts = requestTracker.getAllRequestCounts();
+  const requestCounts = await requestTracker.getAllRequestCounts();
   
   apiModules.forEach(module => {
     if (!categories[module.category]) {
@@ -149,13 +149,13 @@ app.get('/api/info', (req, res) => {
   
   res.json({ 
     categories: Object.values(categories),
-    statistics: requestTracker.getStatistics()
+    statistics: await requestTracker.getStatistics()
   });
 });
 
 // New endpoint to get request statistics
-app.get('/api/stats', (req, res) => {
-  res.json(requestTracker.getStatistics());
+app.get('/api/stats', async (req, res) => {
+  res.json(await requestTracker.getStatistics());
 });
 
 // Serve index.html for the root route
