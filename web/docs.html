@@ -1098,6 +1098,35 @@
             </div>
           </article>
         </section>
+
+        <!-- Top 5 APIs Section -->
+        <div class="mb-20">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-center gradient-text">
+            Top 5 APIs
+          </h2>
+          <p class="text-center text-gray-300 mb-12 max-w-2xl mx-auto">
+            Most popular API endpoints used by developers worldwide
+          </p>
+
+          <div class="max-w-2xl mx-auto mb-16">
+            <!-- Top 5 APIs List -->
+            <div class="bg-dark-700/50 backdrop-blur-sm p-8 rounded-lg border border-dark-600">
+              <div id="top-apis-list" class="space-y-6">
+                <!-- Dynamic content will be loaded here -->
+                <div class="flex items-center justify-center py-8">
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+                  <span class="ml-3 text-gray-400">Loading top APIs...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <a href="#api-categories" class="inline-block gradient-button text-white font-semibold py-3 px-8 rounded-lg transition duration-300 ease-in-out hover:opacity-90 shadow-glow">
+              Explore All APIs
+            </a>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -1653,6 +1682,48 @@
           });
         }
 
+        // Render Top 5 APIs
+        function renderTopAPIs(topEndpoints) {
+          const topAPIsList = document.getElementById('top-apis-list');
+          
+          if (!topEndpoints || topEndpoints.length === 0) {
+            topAPIsList.innerHTML = `
+              <div class="text-center py-8">
+                <p class="text-gray-400">No API usage data available yet.</p>
+                <p class="text-gray-500 text-sm mt-2">Start using the APIs to see statistics here!</p>
+              </div>
+            `;
+            return;
+          }
+
+          const colors = ['bg-yellow-500', 'bg-gray-500', 'bg-orange-500', 'bg-purple-500', 'bg-green-500'];
+          const textColors = ['text-dark-900', 'text-white', 'text-white', 'text-white', 'text-white'];
+          
+          const topAPIsHTML = topEndpoints.slice(0, 5).map((api, index) => {
+            const [method, path] = api.endpoint.split(' ');
+            const pathParts = path.split('/').filter(p => p);
+            const category = pathParts[0] || 'general';
+            const apiName = pathParts[pathParts.length - 1] || category;
+            
+            return `
+              <div class="flex items-center justify-between py-3 border-b border-dark-600/50 last:border-b-0">
+                <div class="flex items-center space-x-4">
+                  <div class="w-8 h-8 ${colors[index]} rounded-full flex items-center justify-center ${textColors[index]} font-bold text-sm">
+                    ${index + 1}
+                  </div>
+                  <div>
+                    <h3 class="text-white font-semibold capitalize">${category}</h3>
+                    <p class="text-gray-400 text-sm">${method} · ${apiName}</p>
+                  </div>
+                </div>
+                <span class="text-gray-300 font-medium">${api.count} request${api.count !== 1 ? 's' : ''}</span>
+              </div>
+            `;
+          }).join('');
+
+          topAPIsList.innerHTML = topAPIsHTML;
+        }
+
         // Load Settings and API Information
         try {
           const settings = await fetch('/settings.json').then(r => r.json());
@@ -1738,6 +1809,9 @@
           // Update sidebar footer counters
           if (totalApiCount) totalApiCount.textContent = totalApis;
           if (totalCategoryCount) totalCategoryCount.textContent = sortedCategories.length;
+
+          // Render Top 5 APIs
+          renderTopAPIs(apiInfo.statistics?.topEndpoints || []);
 
           // Render Sidebar Categories as Card-Style Blocks with Active Hover/State Mark - Enhanced
           const sidebarCategories = document.getElementById('sidebarCategories');
