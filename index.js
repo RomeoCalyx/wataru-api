@@ -48,7 +48,10 @@ app.use((req, res, next) => {
   
   // Track successful API requests
   const trackRequest = () => {
-    if (req.path.startsWith('/api/') && res.statusCode < 400) {
+    // Only track actual API endpoints, not system endpoints like /api/info, /api/stats
+    if (req.path.startsWith('/api/') && 
+        res.statusCode < 400 && 
+        !req.path.match(/^\/api\/(info|stats)$/)) {
       const apiPath = req.path.replace('/api', '');
       requestTracker.trackRequest(apiPath, req.method);
     }
